@@ -4,7 +4,7 @@
   "description": "Astronomical calculation library",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "make test"
   },
   "repository": {
     "type": "git",
@@ -21,5 +21,8 @@
   "bugs": {
     "url": "https://github.com/wraithgar/moonbeams/issues"
   },
-  "homepage": "https://github.com/wraithgar/moonbeams"
+  "homepage": "https://github.com/wraithgar/moonbeams",
+  "devDependencies": {
+    "lab": "^3.2.3"
+  }
 }
