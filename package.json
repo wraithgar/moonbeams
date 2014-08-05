@@ -14,7 +14,9 @@
     "javascript",
     "calendar",
     "astronomical",
-    "calculations"
+    "calculations",
+    "date",
+    "season"
   ],
   "author": "Gar <gar@comrade.us>",
   "license": "MIT",
