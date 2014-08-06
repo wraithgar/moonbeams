@@ -87,6 +87,11 @@
         return Math.cos(Moonbeams.degreeToRadian(degree));
     };
 
+    // Returns tangent of decimal degrees
+    var tangent = Moonbeams.tangent = function (degree) {
+        return Math.tan(Moonbeams.degreeToRadian(degree));
+    };
+
     // Returns INT of given decimal number
     // INT is the integer portion *closest to zero*
     // Meeus calls this INT so we do too
@@ -94,13 +99,19 @@
         return Math[number < 0 ? 'ceil' : 'floor'](number);
     };
 
-    // Converts given hours, minutes, and (arc)seconds into decimal
-    var hmsToDecimal = Moonbeams.hmsToDecimal = Moonbeams.rightAscentionToDecimal = function (hours, minutes, seconds) {
-        return (hours + (minutes / 60) + (seconds / 3600)) * 15;
+    // Converts given hours, minutes, and arcseconds right ascention
+    var hmsToRightAscention = Moonbeams.hmsToRightAscention = function (hours, minutes, arcseconds) {
+        return (hours + (minutes / 60) + (arcseconds / 3600)) * 15;
+    };
+    //TODO rightAscentionToHms
+
+    // Converts given hours, minutes, and seconds into decimal of a day
+    var hmsToDay = Moonbeams.hmsToDay = function (hours, minutes, seconds) {
+        return (hmsToRightAscention(hours, minutes, seconds) / 360);
     };
 
-    // Converts given decimal to hours, minutes, and (arc)seconds
-    var decimalToHms = Moonbeams.decimalToHms = Moonbeams.DecimalTorightAscention =  function (degree) {
+    // Converts given decimal day to hours, minutes, and (arc)seconds
+    var dayToHms = Moonbeams.dayToHms = function (degree) {
         //Return the hours, minutes, seconds from the decimal portion of given degree
         var dayFragment = degree - INT(degree);
         var hour  = INT(dayFragment * 24.0);
@@ -167,20 +178,15 @@
         } else {
             year = C - 4715;
         }
-        result = {year: year, month: month, fullDay: day, day: INT(day)};
+        result = {year: year, month: month, day: day};
 
-        dayFragments = decimalToHms(day);
-        result.hour = dayFragments.hour;
-        result.minute = dayFragments.minute;
-        result.fullSecond = dayFragments.fullSecond;
-        result.second = dayFragments.second;
         return result;
     };
 
     // (Meeus chapter 7)
     // Convert given year, month, day to decimal julian day
     // Day can be decimal
-    // (Use hmsToDecimal if you have hours, minutes, and seconds to add to a day)
+    // (Use hmsToDay if you have hours, minutes, and seconds to add to a day)
     var calendarToJd = Moonbeams.calendarToJd = function (year, month, day) {
         var jd, A, B;
         if (year < -4712) {
