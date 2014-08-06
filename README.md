@@ -38,6 +38,7 @@ var minute = 30;
 var second = 45.2;
 var fullDay = day + moonbeams.hmsToDay(hour, minute, second);
 //fullDay will now be `8.563...`
+```
 
 ### dayToHms `moonbeams.dayToHms(day)`
 
