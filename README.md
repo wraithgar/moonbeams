@@ -1,6 +1,7 @@
 #Moonbeams
 ====
-[![NPM](https://nodei.co/npm/moonboots_hapi.png)](https://nodei.co/npm/moonboots_hapi/)
+
+[![NPM](https://nodei.co/npm/moonbeams.png)](https://nodei.co/npm/moonbeams/)
 
 Javscript library for doing astronomical calculations
 
