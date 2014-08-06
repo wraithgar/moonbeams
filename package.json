@@ -16,7 +16,8 @@
     "astronomical",
     "calculations",
     "date",
-    "season"
+    "season",
+    "julian"
   ],
   "author": "Gar <gar@comrade.us>",
   "license": "MIT",

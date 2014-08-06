@@ -81,19 +81,35 @@ Lab.experiment('helper functions', function () {
     Lab.test('hms to decimal day', function (done) {
         var table = [
             [12, 0, 0, 0.5],
-            [19, 26, 24, 0.81]
+            [19, 26, 24, 0.81],
+            [18, 0, 0, 0.75]
         ];
         table.forEach(function (tableItem) {
             var result = moonbeams.hmsToDay(tableItem[0], tableItem[1], tableItem[2]);
             Lab.expect(result, 'decimal of ' + tableItem[0] + ' ' + tableItem[1] + ' ' + tableItem[2]).to.equal(tableItem[3]);
+            result = moonbeams.dayToHms(tableItem[3]);
+            Lab.expect(result, 'hms of ' + tableItem[3]).to.include.keys('hour', 'minute', 'second');
+            Lab.expect(result.hour, 'hour of ' + tableItem[3]).to.equal(tableItem[0]);
+            Lab.expect(result.minute, 'minute of ' + tableItem[3]).to.equal(tableItem[1]);
+            Lab.expect(result.second, 'second of ' + tableItem[3]).to.equal(tableItem[2]);
         });
         done();
     });
 
     Lab.test('hms to right ascention', function (done) {
         //Example 1.a from Meeus
-        var result = moonbeams.hmsToRightAscention(9, 14, 55.8);
-        Lab.expect(result).to.equal(138.73250);
+        var table = [
+            [9, 14, 55.8, 138.73250]
+        ];
+        table.forEach(function (tableItem) {
+            var result = moonbeams.hmsToRightAscention(tableItem[0], tableItem[1], tableItem[2]);
+            Lab.expect(result, 'right ascention of' + tableItem[0] + ' ' + tableItem[1] + ' ' + tableItem[2]).to.equal(tableItem[3]);
+            result = moonbeams.rightAscentionToHms(tableItem[3]);
+            Lab.expect(result, 'hms of ' + tableItem[3]).to.include.keys('hour', 'minute', 'second');
+            Lab.expect(result.hour, 'hour of ' + tableItem[3]).to.equal(tableItem[0]);
+            Lab.expect(result.minute, 'minute of ' + tableItem[3]).to.equal(tableItem[1]);
+            Lab.expect(Math.floor(result.second), 'second of ' + tableItem[3]).to.equal(Math.floor(tableItem[2]));
+        });
         done();
     });
 

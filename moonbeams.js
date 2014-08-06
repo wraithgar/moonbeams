@@ -103,7 +103,14 @@
     var hmsToRightAscention = Moonbeams.hmsToRightAscention = function (hours, minutes, arcseconds) {
         return (hours + (minutes / 60) + (arcseconds / 3600)) * 15;
     };
-    //TODO rightAscentionToHms
+
+    var rightAscentiontoHms = Moonbeams.rightAscentionToHms = function (ra) {
+        var degrees = ra/15;
+        var hour = INT(degrees);
+        var minute = INT((degrees - hour) * 60.0);
+        var second = (((degrees - hour) * 60.0) - minute) * 60.0;
+        return {hour: hour, minute: minute, second: second};
+    };
 
     // Converts given hours, minutes, and seconds into decimal of a day
     var hmsToDay = Moonbeams.hmsToDay = function (hours, minutes, seconds) {

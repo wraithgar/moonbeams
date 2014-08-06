@@ -1,4 +1,6 @@
 #Moonbeams
+====
+[![NPM](https://nodei.co/npm/moonboots_hapi.png)](https://nodei.co/npm/moonboots_hapi/)
 
 Javscript library for doing astronomical calculations
 
@@ -43,6 +45,14 @@ var fullDay = day + moonbeams.hmsToDay(hour, minute, second);
 ### dayToHms `moonbeams.dayToHms(day)`
 
 Retrieve the hour, minute, and second from the decimal portion of a day.  Returns an object with attributes `hour`, `minute`, and `second`.  Second may be a decimal number.
+
+### hmsToRightAscention `moonbeams.hmsToRightAscention(hour, minute, arcsecond)`
+
+Convert a given hour, minute, and arcsecond to right ascention.  Second can be a decimal to represent precision higher than 1 arcsecond.
+
+### rightAscentionToHms `moonbeams.rightAscentionToHms(rightAscention)`
+
+Convert a given decimal right ascention into hours, minutes, and (arc)seconds.  Returns an object with attributes for `hour`, `minute`, and `second`.  Second may be a decimal number.
 
 ### INT `moonbeams.INT(number)`
 
