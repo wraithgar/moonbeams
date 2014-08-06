@@ -4,7 +4,6 @@
 
 Javscript library for doing astronomical calculations
 
-In a lot of flux while things are being initially written, stay tuned
 
 ##Use
 ```javascript
