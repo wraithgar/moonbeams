@@ -97,9 +97,8 @@ Lab.experiment('helper functions', function () {
     });
 
     Lab.test('hms to right ascention', function (done) {
-        //Example 1.a from Meeus
         var table = [
-            [9, 14, 55.8, 138.73250]
+            [9, 14, 55.8, 138.73250] //Example 1.a from Meeus
         ];
         table.forEach(function (tableItem) {
             var result = moonbeams.hmsToRightAscention(tableItem[0], tableItem[1], tableItem[2]);
@@ -130,6 +129,35 @@ Lab.experiment('helper functions', function () {
         table.forEach(function (tableItem) {
             var result = moonbeams.isLeapYear(tableItem[0]);
             Lab.expect(result, 'year ' + tableItem[0]).to.equal(tableItem[1]);
+        });
+        done();
+    });
+
+    Lab.test('Day of week', function (done) {
+        var table = [
+            [2434923.5, 3] //Example 7.e from Meeus
+        ];
+        table.forEach(function (tableItem) {
+            var result = moonbeams.dayOfWeek(tableItem[0]);
+            Lab.expect(result, 'day of week for julian day ' + tableItem[0]).to.equal(tableItem[1]);
+        });
+        done();
+    });
+
+    Lab.test('Day of year', function (done) {
+        var table = [
+            [1978, 11, 14, 318], //Example7.f from Meeus
+            [1988, 4, 22, 113] //Example7.g from Meeus
+        ];
+        table.forEach(function (tableItem) {
+            var jd = moonbeams.calendarToJd(tableItem[0], tableItem[1], tableItem[2]);
+            var result = moonbeams.dayOfYear(jd);
+            Lab.expect(result, 'day of year for ' + tableItem[0] + '/' + tableItem[1] + '/' + tableItem[2]).to.equal(tableItem[3]);
+            result = moonbeams.yearDayToCalendar(tableItem[3], tableItem[0]);
+            Lab.expect(result, 'calendar date from day ' + tableItem[3] + ' of year ' + tableItem[0]).to.include.keys('year', 'month', 'day');
+            Lab.expect(result.year, 'year from day ' + tableItem[3] + ' of year ' + tableItem[0]).to.equal(tableItem[0]);
+            Lab.expect(result.month, 'month from day ' + tableItem[3] + ' of year ' + tableItem[0]).to.equal(tableItem[1]);
+            Lab.expect(result.day, 'month day from day ' + tableItem[3] + ' of year ' + tableItem[0]).to.equal(tableItem[2]);
         });
         done();
     });

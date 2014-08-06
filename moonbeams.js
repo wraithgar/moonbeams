@@ -280,6 +280,49 @@
             S = S + periodicTermTableA[i][0] * cosine(periodicTermTableA[i][1] + ( periodicTermTableA[i][2] * T ));
         }
         jde = jde0 + ( (0.00001 * S) / dl );
-        return jde; //TODO VSOP87
+        //TODO VSOP87
+        return jde;
     };
+
+    // (Meeus chapter 7)
+    // Return day of week (0-6) of a given julian day
+    var dayOfWeek = Moonbeams.dayOfWeek = function (jd) {
+        return (jd + 1.5) % 7;
+    };
+
+    // (Meeus chapter 7)
+    // Return day of the year for given julian day
+    var dayOfYear = Moonbeams.dayOfYear = function (jd) {
+        var N, K;
+        var calendar = jdToCalendar(jd);
+        var leapYear = isLeapYear(calendar.year);
+        if (leapYear) {
+            K = 1;
+        } else {
+            K = 2;
+        }
+        N = INT( ( 275 * calendar.month ) / 9 ) - ( K * INT( ( calendar.month + 9 ) / 12 ) ) + calendar.day - 30;
+        return N;
+    };
+
+    // (Meeus chapter 7)
+    // Return calendar object for a given day of year
+    // Algorithm found by A. Pouplier, of the Société Astronomique do Liège, Belgium
+    var yearDayToCalendar = Moonbeams.yearDayToCalendar = function (yearDay, year) {
+        var K, month, day;
+        var leapYear = isLeapYear(year);
+        if (leapYear) {
+            K = 1;
+        } else {
+            K = 2;
+        }
+        if (yearDay < 32) {
+            month = 1;
+        } else {
+            month = INT( ( ( 9 * (K + yearDay) ) / 275 ) + 0.98 );
+        }
+        day = yearDay - INT( ( 275 * month ) / 9 ) + ( K * INT ( ( month + 9 ) / 12 ) ) + 30;
+        return {year: year, month: month, day: day};
+    };
+
 }).call(this);

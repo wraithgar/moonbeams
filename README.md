@@ -66,6 +66,18 @@ Takes an integer year and returns `true` if that year is a leap year
 
 ### season `moonbeams.season(seasonIndex, year)`
 
+### dayOfWeek `moonbeams.dayOfWeek(jd)`
+
+Returns integer day of week (0-6 where 0 is Sunday) for given julian day
+
+### dayOfYear `moonbeams.dayOfYear(jd)`
+
+Returns integer day of year (1-365 or 366) for given julian day
+
+### yearDayToCalendar `moonbeams.yearDayToCalendar(yearDay, year)`
+
+Calculate the calendar day of a given day of the year and year.  Returns an object with `year`, `month`, and `day` attributes.
+
 Find the decimal julian day that a given season starts in a given year.  `seasonIndex` is as follows
 
 - 0 - March Equinox
