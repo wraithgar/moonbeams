@@ -1,6 +1,6 @@
 {
   "name": "moonbeams",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Astronomical calculation library",
   "main": "moonbeams.js",
   "scripts": {
