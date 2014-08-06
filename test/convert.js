@@ -1,5 +1,6 @@
 var Lab = require('lab');
-var convert = require('../lib/convert');
+var moonbeams = require('../');
+
 //Test data from Meeus chapter 7
 var table = [
     [1957, 10, 4.81, 2436116.31, 19, 26, 24],
@@ -25,7 +26,7 @@ var table = [
 Lab.experiment('conversion library', function () {
     Lab.test('Julian Day to Calendar Date', function (done) {
         table.forEach(function (tableItem) {
-            var result = convert.JDToCalendar(tableItem[3]);
+            var result = moonbeams.jdToCalendar(tableItem[3]);
             Lab.expect(result, 'calendar date from julian day').to.include.keys('year', 'month', 'day', 'fullDay', 'hour', 'minute', 'second');
             Lab.expect(result.year, 'year from julian day ' + tableItem[3]).to.equal(tableItem[0]);
             Lab.expect(result.month, 'month from julian day ' + tableItem[3]).to.equal(tableItem[1]);
@@ -38,7 +39,7 @@ Lab.experiment('conversion library', function () {
     });
     Lab.test('Calendar Date to Julian Day', function (done) {
         table.forEach(function (tableItem) {
-            var result = convert.calendarToJD(tableItem[0], tableItem[1], tableItem[2]);
+            var result = moonbeams.calendarToJd(tableItem[0], tableItem[1], tableItem[2]);
             Lab.expect(result, 'julian day from calendar date ' + tableItem[0] + '/' + tableItem[1] + '/' + tableItem[2]).to.equal(tableItem[3]);
         });
         done();

@@ -1,5 +1,5 @@
 var Lab = require('lab');
-var test = require('../lib/test');
+var moonbeams = require('../');
 
 Lab.experiment('test library', function () {
     Lab.test('Leap year', function (done) {
@@ -17,7 +17,7 @@ Lab.experiment('test library', function () {
             [2400, true]
         ];
         table.forEach(function (tableItem) {
-            var result = test.leapYear(tableItem[0]);
+            var result = moonbeams.isLeapYear(tableItem[0]);
             Lab.expect(result, 'year ' + tableItem[0]).to.equal(tableItem[1]);
         });
         done();

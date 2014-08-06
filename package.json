@@ -2,7 +2,7 @@
   "name": "moonbeams",
   "version": "0.0.1",
   "description": "Astronomical calculation library",
-  "main": "index.js",
+  "main": "moonbeams.js",
   "scripts": {
     "test": "make test"
   },
