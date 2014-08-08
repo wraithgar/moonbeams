@@ -1,6 +1,8 @@
 // Moonbeams.js
 // (c) 2014 Michael Garvin
 // Moonbeams may be freely distributed under the MIT license.
+//
+// Unless specifically stated otherwise, all julian days are in dynamical time
 
 (function () {
     // Establish the root object, `window` in the browser, or `exports` on the server.
@@ -99,6 +101,12 @@
         return Math[number < 0 ? 'ceil' : 'floor'](number);
     };
 
+    // Returns julian cycle since Jan 1, 2000
+    // Meeus calls this T so we do too
+    var T = Moonbeams.T = function (jd) {
+        return ( jd - 2451545.0 ) / 36525;
+    };
+
     // Converts given hours, minutes, and arcseconds right ascention
     var hmsToRightAscention = Moonbeams.hmsToRightAscention = function (hours, minutes, arcseconds) {
         return (hours + (minutes / 60) + (arcseconds / 3600)) * 15;
@@ -124,6 +132,14 @@
         var hour  = INT(dayFragment * 24.0);
         var minute  = INT((dayFragment * 24.0 - hour) * 60.0);
         var second  = ((dayFragment * 24.0 - hour) * 60.0 - minute) * 60.0;
+        if (second > 59.999) {
+            second = 0;
+            minute = minute + 1;
+        }
+        if (minute > 59.999) {
+            minute = 0;
+            hour = hour + 1;
+        }
         return {hour: hour, minute: minute, fullSecond: second, second: INT(second)};
     };
 
@@ -141,6 +157,21 @@
             return false;
         }
         return true;
+    };
+
+    // (Meeus chapter 12)
+    // Calculate mean sidereal time at Greenwich of a given julian day
+    var meanSiderealTime = Moonbeams.meanSiderealTime = function (jd) {
+        var mean;
+        var cycle = T(jd);
+        mean = 280.46061837 +
+            (360.98564736629 * ( jd - 2451545.0 ) ) +
+            (0.000387933 * cycle * cycle) -
+            (cycle * cycle * cycle / 38710000);
+        if (mean < 0 || mean > 360) {
+            mean = mean - Math.floor(mean / 360) * 360;
+        }
+        return mean;
     };
 
     // Main conversion functions
@@ -265,22 +296,22 @@
     //   1 - June solstice
     //   2 - September equinox
     //   3 - December solstice
+    //   Returns a julian day in dynamical time
     var season = Moonbeams.season = function (seasonIndex, year) {
-        var jde0, jde, T, W, dl, S, periodicTerm;
+        var jde0, jde, cycle, W, dl, S, periodicTerm;
         jde0 = meanSeason(seasonIndex, year);
 
-        T = (jde0 - 2451545.0) / 36525;
-        W = (35999.373 * T) - 2.47;
+        cycle = T(jde0);
+        W = (35999.373 * cycle) - 2.47;
         dl = 1 +
             ( 0.0334 * cosine(W) ) +
             ( 0.0007 * cosine(W * 2) );
         S = 0;
         for( var i=0; i<24; i++ ) {
             periodicTerm = periodicTermTableA[i];
-            S = S + periodicTermTableA[i][0] * cosine(periodicTermTableA[i][1] + ( periodicTermTableA[i][2] * T ));
+            S = S + periodicTermTableA[i][0] * cosine(periodicTermTableA[i][1] + ( periodicTermTableA[i][2] * cycle ));
         }
         jde = jde0 + ( (0.00001 * S) / dl );
-        //TODO VSOP87
         return jde;
     };
 

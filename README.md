@@ -26,8 +26,7 @@ Cannot convert from a date that would result in a negative julian day
 
 ### jdToCalendar `moonbeams.jdToCalendar(jd)`
 
-Convert a given decimal julian day into a calendar day.  Given julian day must be positive.  Returns an object with `year`, `month`, and `day` attributes.  `day` will be a decimal you can pass to `dayToHms` to get the hours, minutes, and 
-seconds from.
+Convert a given decimal julian day into a calendar day.  Given julian day must be positive.  Returns an object with `year`, `month`, and `day` attributes.  `day` will be a decimal you can pass to `dayToHms` to get the hours, minutes, and seconds from.
 
 ### hmsToDay `moonbeams.hmsToDay(hour, minute, second)`
 
@@ -58,6 +57,10 @@ Convert a given decimal right ascention into hours, minutes, and (arc)seconds.  
 
 Returns the integer portion of a given decimal number.  This is different than `Math.floor` as it doesn't round down, but rounds *towards zero*
 
+### T `moonbeams.T(jd)`
+
+Returns the current julian cycle, aka the julian cycle since Jan 1, 2000
+
 So, `moonbeams.INT(4.999)` is `4` and `moonbeams.INT(-4.999)` is `-4`
 
 ### isLeapYear `moonbeams.isLeapYear(year)`
@@ -78,6 +81,10 @@ Returns integer day of year (1-365 or 366) for given julian day
 
 Calculate the calendar day of a given day of the year and year.  Returns an object with `year`, `month`, and `day` attributes.
 
+### meanSiderealTime `moonbeams.meanSiderealTime(jd)`
+
+Returns the mean sidereal Time at Greenwich for given julian day
+
 Find the decimal julian day that a given season starts in a given year.  `seasonIndex` is as follows
 
 - 0 - March Equinox
@@ -95,5 +102,7 @@ MIT
 
 ###Credit
 Most of the calculations in this library are from [Astronomical Algorythms by John Meeus][meeus] without which libraries like this would likely never exist.
+
+Unless specifically stated otherwise, all julian days are in dynamical time and can be decimal
 
 [meeus]: http://www.willbell.com/math/mc1.htm
