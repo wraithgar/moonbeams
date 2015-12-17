@@ -4,8 +4,12 @@
   "description": "Astronomical calculation library",
   "main": "moonbeams.js",
   "scripts": {
-    "test": "make test"
+    "test": "lab -L",
+    "lint": "eslint ."
   },
+  "pre-commit": [
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "git@github.com:wraithgar/moonbeams.git"
@@ -26,6 +30,9 @@
   },
   "homepage": "https://github.com/wraithgar/moonbeams",
   "devDependencies": {
-    "lab": "^3.2.3"
+    "code": "^2.0.1",
+    "eslint-config-andyet": "^1.0.0",
+    "git-validate": "^2.1.2",
+    "lab": "^8.0.0"
   }
 }
