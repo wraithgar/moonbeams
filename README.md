@@ -1,8 +1,8 @@
 #Moonbeams
-====
 
 Javscript library for doing astronomical calculations
 
+[![Build Status](https://travis-ci.org/wraithgar/moonbeams.svg)](https://travis-ci.org/wraithgar/moonbeams)
 
 ##Use
 ```javascript
