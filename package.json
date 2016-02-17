@@ -33,6 +33,6 @@
     "code": "^2.0.1",
     "eslint-config-andyet": "^1.0.0",
     "git-validate": "^2.1.2",
-    "lab": "^8.0.0"
+    "lab": "^8.3.0"
   }
 }
