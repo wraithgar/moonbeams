@@ -3,6 +3,7 @@
 Javscript library for doing astronomical calculations
 
 [![Build Status](https://travis-ci.org/wraithgar/moonbeams.svg)](https://travis-ci.org/wraithgar/moonbeams)
+[![NSP Status](https://nodesecurity.io/orgs/wraithgar/projects/e21ee1d9-fb5b-4990-8c8d-ad3be48380c9/badge)](https://nodesecurity.io/orgs/wraithgar/projects/e21ee1d9-fb5b-4990-8c8d-ad3be48380c9)
 
 ##Use
 ```javascript
