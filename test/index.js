@@ -37,7 +37,7 @@ lab.experiment('Main conversion functions', function () {
 
       var hms;
       var result = Moonbeams.jdToCalendar(testData[3]);
-      Code.expect(result, 'calendar date from julian day').to.include('year', 'month', 'day');
+      Code.expect(result, 'calendar date from julian day').to.include(['year', 'month', 'day']);
       hms = Moonbeams.dayToHms(result.day);
       Code.expect(result.year, 'year from julian day ' + testData[3]).to.equal(testData[0]);
       Code.expect(result.month, 'month from julian day ' + testData[3]).to.equal(testData[1]);
@@ -124,7 +124,7 @@ lab.experiment('helper functions', function () {
       var result = Moonbeams.hmsToDay(testData[0], testData[1], testData[2]);
       Code.expect(result, 'decimal of ' + testData[0] + ' ' + testData[1] + ' ' + testData[2]).to.equal(testData[3]);
       result = Moonbeams.dayToHms(testData[3]);
-      Code.expect(result, 'hms of ' + testData[3]).to.include('hour', 'minute', 'second');
+      Code.expect(result, 'hms of ' + testData[3]).to.include(['hour', 'minute', 'second']);
       Code.expect(result.hour, 'hour of ' + testData[3]).to.equal(testData[0]);
       Code.expect(result.minute, 'minute of ' + testData[3]).to.equal(testData[1]);
       Code.expect(result.second, 'second of ' + testData[3]).to.equal(testData[2]);
@@ -143,7 +143,7 @@ lab.experiment('helper functions', function () {
       var result = Moonbeams.hmsToRightAscention(testData[0], testData[1], testData[2]);
       Code.expect(result, 'right ascention of' + testData[0] + ' ' + testData[1] + ' ' + testData[2]).to.equal(testData[3]);
       result = Moonbeams.rightAscentionToHms(testData[3]);
-      Code.expect(result, 'hms of ' + testData[3]).to.include('hour', 'minute', 'second');
+      Code.expect(result, 'hms of ' + testData[3]).to.include(['hour', 'minute', 'second']);
       Code.expect(result.hour, 'hour of ' + testData[3]).to.equal(testData[0]);
       Code.expect(result.minute, 'minute of ' + testData[3]).to.equal(testData[1]);
       Code.expect(Math.floor(result.second), 'second of ' + testData[3]).to.equal(Math.floor(testData[2]));
@@ -202,7 +202,7 @@ lab.experiment('helper functions', function () {
       var result = Moonbeams.dayOfYear(jd);
       Code.expect(result, 'day of year for ' + testData[0] + '/' + testData[1] + '/' + testData[2]).to.equal(testData[3]);
       result = Moonbeams.yearDayToCalendar(testData[3], testData[0]);
-      Code.expect(result, 'calendar date from day ' + testData[3] + ' of year ' + testData[0]).to.include('year', 'month', 'day');
+      Code.expect(result, 'calendar date from day ' + testData[3] + ' of year ' + testData[0]).to.include(['year', 'month', 'day']);
       Code.expect(result.year, 'year from day ' + testData[3] + ' of year ' + testData[0]).to.equal(testData[0]);
       Code.expect(result.month, 'month from day ' + testData[3] + ' of year ' + testData[0]).to.equal(testData[1]);
       Code.expect(result.day, 'month day from day ' + testData[3] + ' of year ' + testData[0]).to.equal(testData[2]);
