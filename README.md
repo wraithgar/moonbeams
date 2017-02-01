@@ -1,5 +1,7 @@
 #Moonbeams
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/wraithgar/moonbeams.svg)](https://greenkeeper.io/)
+
 Javscript library for doing astronomical calculations
 
 [![Build Status](https://travis-ci.org/wraithgar/moonbeams.svg)](https://travis-ci.org/wraithgar/moonbeams)
