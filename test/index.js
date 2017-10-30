@@ -31,7 +31,7 @@ lab.experiment('Main conversion functions', function () {
     [-1001, 8, 17.9, 1355671.4, 21, 36, 0],
     [-4712, 1, 1.5, 0, 12, 0, 0]
   ];
-  lab.test('Julian Day to Calendar Date', function (done) {
+  lab.test('Julian Day to Calendar Date', function () {
 
     table.forEach(function (testData) {
 
@@ -46,16 +46,14 @@ lab.experiment('Main conversion functions', function () {
       Code.expect(hms.minute, 'minute from julian day ' + testData[3]).to.equal(testData[5]);
       Code.expect(hms.second, 'second from julian day ' + testData[3]).to.equal(testData[6]);
     });
-    done();
   });
-  lab.test('Calendar Date to Julian Day', function (done) {
+  lab.test('Calendar Date to Julian Day', function () {
 
     table.forEach(function (testData) {
 
       var result = Moonbeams.calendarToJd(testData[0], testData[1], testData[2]);
       Code.expect(result, 'julian day from calendar date ' + testData[0] + '/' + testData[1] + '/' + testData[2]).to.equal(testData[3]);
     });
-    done();
   });
 });
 
@@ -66,20 +64,19 @@ lab.experiment('season calculator', function () {
   var table = [
     [1, 1962, 2437837.39245]
   ];
-  lab.test('Calculate julian day of season', function (done) {
+  lab.test('Calculate julian day of season', function () {
 
     table.forEach(function (testData) {
 
       var result = Moonbeams.season(testData[0], testData[1]);
       Code.expect(Math.floor(result * 10000), 'julian day for ' + testData[0] + '/' + testData[1]).to.equal(Math.floor(testData[2] * 10000));
     });
-    done();
   });
 });
 
 lab.experiment('helper functions', function () {
 
-  lab.test('INT', function (done) {
+  lab.test('INT', function () {
 
     //Examples from Meeus chapter 7
     //x, INT(x)
@@ -95,9 +92,8 @@ lab.experiment('helper functions', function () {
       var result = Moonbeams.INT(testData[0]);
       Code.expect(result, 'INT(' + testData[0] + ')').to.equal(testData[1]);
     });
-    done();
   });
-  lab.test('T', function (done) {
+  lab.test('T', function () {
 
     //jd, T(jd)
     var table = [
@@ -108,9 +104,8 @@ lab.experiment('helper functions', function () {
       var result = Moonbeams.T(testData[0]);
       Code.expect(Moonbeams.INT(result * 100000000), 'T(' + testData[0] + ')').to.equal(testData[1]);
     });
-    done();
   });
-  lab.test('hms to decimal day', function (done) {
+  lab.test('hms to decimal day', function () {
 
     //hour, minute, second, decimal day
     var table = [
@@ -129,10 +124,9 @@ lab.experiment('helper functions', function () {
       Code.expect(result.minute, 'minute of ' + testData[3]).to.equal(testData[1]);
       Code.expect(result.second, 'second of ' + testData[3]).to.equal(testData[2]);
     });
-    done();
   });
 
-  lab.test('hms to right ascention', function (done) {
+  lab.test('hms to right ascention', function () {
 
     //hour, minute, second, right ascention
     var table = [
@@ -148,10 +142,9 @@ lab.experiment('helper functions', function () {
       Code.expect(result.minute, 'minute of ' + testData[3]).to.equal(testData[1]);
       Code.expect(Math.floor(result.second), 'second of ' + testData[3]).to.equal(Math.floor(testData[2]));
     });
-    done();
   });
 
-  lab.test('Leap year', function (done) {
+  lab.test('Leap year', function () {
 
     // year, is leap year
     var table = [
@@ -172,10 +165,9 @@ lab.experiment('helper functions', function () {
       var result = Moonbeams.isLeapYear(testData[0]);
       Code.expect(result, 'year ' + testData[0]).to.equal(testData[1]);
     });
-    done();
   });
 
-  lab.test('Day of week', function (done) {
+  lab.test('Day of week', function () {
 
     //jd, day of week
     var table = [
@@ -186,10 +178,9 @@ lab.experiment('helper functions', function () {
       var result = Moonbeams.dayOfWeek(testData[0]);
       Code.expect(result, 'day of week for julian day ' + testData[0]).to.equal(testData[1]);
     });
-    done();
   });
 
-  lab.test('Day of year', function (done) {
+  lab.test('Day of year', function () {
 
     //year, month, day, day of year
     var table = [
@@ -207,10 +198,9 @@ lab.experiment('helper functions', function () {
       Code.expect(result.month, 'month from day ' + testData[3] + ' of year ' + testData[0]).to.equal(testData[1]);
       Code.expect(result.day, 'month day from day ' + testData[3] + ' of year ' + testData[0]).to.equal(testData[2]);
     });
-    done();
   });
 
-  lab.test('Sidereal time', function (done) {
+  lab.test('Sidereal time', function () {
 
     //jd, mean hour, mean minute, mean second, apparent hour, apparent minute, apparent second
     var table = [
@@ -225,17 +215,15 @@ lab.experiment('helper functions', function () {
       Code.expect(hms.minute, 'mean sidereal minute of ' + testData[0]).to.equal(testData[2]);
       Code.expect(Moonbeams.INT(hms.second * 100), 'mean sidereal second of ' + testData[0]).to.equal(Moonbeams.INT(testData[3] * 100));
     });
-    done();
   });
 });
 
 lab.experiment('trig functions', function () {
 
-  lab.test('tangent', function (done) {
+  lab.test('tangent', function () {
 
     //Example 1.a from Meeus
     var result = Moonbeams.tangent(138.73250);
     Code.expect(Math.floor(result * 1000000)).to.equal(-877517);
-    done();
   });
 });
