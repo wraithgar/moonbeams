@@ -32,7 +32,7 @@
   "homepage": "https://github.com/wraithgar/moonbeams",
   "devDependencies": {
     "code": "^5.2.4",
-    "eslint": "^5.16.0",
+    "eslint": "^6.0.0",
     "eslint-config-andyet": "^2.0.0",
     "eslint-plugin-hapi": "^4.0.0",
     "git-validate": "^2.2.4",
