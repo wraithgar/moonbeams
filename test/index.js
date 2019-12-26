@@ -1,7 +1,7 @@
 'use strict';
 
-var Code = require('code');
-var Lab = require('lab');
+var Code = require('@hapi/code');
+var Lab = require('@hapi/lab');
 var Moonbeams = require('../');
 
 var lab = exports.lab = Lab.script();
