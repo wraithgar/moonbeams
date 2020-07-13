@@ -1,13 +1,8 @@
 #Moonbeams
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/wraithgar/moonbeams.svg)](https://greenkeeper.io/)
-
 Javscript library for doing astronomical calculations
 
-[![Build Status](https://travis-ci.org/wraithgar/moonbeams.svg)](https://travis-ci.org/wraithgar/moonbeams)
-[![NSP Status](https://nodesecurity.io/orgs/wraithgar/projects/e21ee1d9-fb5b-4990-8c8d-ad3be48380c9/badge)](https://nodesecurity.io/orgs/wraithgar/projects/e21ee1d9-fb5b-4990-8c8d-ad3be48380c9)
-
-##Use
+## Use
 ```javascript
 var moonbeams = require('moonbeams');
 
@@ -21,7 +16,7 @@ Only methods backed up by tests will be listed here
 ### calendarToJd `moonbeams.calendarToJd(year, month, day)`
 
 Convert a given year, month, and day into a decimal julian day
-Year and month should be integers, day can be a decimal.  To convert hours, minutes, and seconds into decimal see `hmsToDay
+Year and month should be integers, day can be a decimal.  To convert hours, minutes, and seconds into decimal see `hmsToDay`
 
 Cannot convert from a date that would result in a negative julian day
 
@@ -95,13 +90,13 @@ Find the decimal julian day that a given season starts in a given year.  `season
 
 Year must be between -1000 and 3000.
 
-###Notes
+### Notes
 Years should be integers, positive or negative.  BC years are simply negative years, for example the year 585 BC is really -584.
 
 #License
 MIT
 
-###Credit
+### Credit
 Most of the calculations in this library are from [Astronomical Algorythms by John Meeus][meeus] without which libraries like this would likely never exist.
 
 Unless specifically stated otherwise, all julian days are in dynamical time and can be decimal
