@@ -4,17 +4,21 @@
   "description": "Astronomical calculation library",
   "main": "moonbeams.js",
   "scripts": {
-    "test": "lab -L",
-    "lint": "eslint ."
+    "test": "lab",
+    "posttest": "npm run lint",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
   },
   "pre-commit": [
-    "test",
-    "lint"
+    "test"
   ],
   "repository": {
     "type": "git",
     "url": "git@github.com:wraithgar/moonbeams.git"
   },
+  "files": [
+    "moonbeams.js"
+  ],
   "keywords": [
     "javascript",
     "calendar",
@@ -33,9 +37,7 @@
   "devDependencies": {
     "@hapi/code": "^8.0.0",
     "@hapi/lab": "^24.0.0",
-    "eslint": "^7.0.0",
-    "eslint-config-andyet": "^2.0.0",
-    "eslint-plugin-hapi": "^4.0.0",
-    "git-validate": "^2.2.4"
+    "git-validate": "^2.2.4",
+    "standard": "^16.0.3"
   }
 }
