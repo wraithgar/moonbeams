@@ -1,12 +1,11 @@
 'use strict'
 
-const Code = require('@hapi/code')
-const Lab = require('@hapi/lab')
+const lab = (exports.lab = require('@hapi/lab').script())
+const { describe, it } = lab
+const { expect } = require('@hapi/code')
 const Moonbeams = require('../')
 
-const lab = exports.lab = Lab.script()
-
-lab.experiment('Main conversion functions', function () {
+describe('Main conversion functions', function () {
   // Test data from Meeus chapter 7
   // year, month, decimal day, jd, hour, minute, second
   const table = [
@@ -30,43 +29,43 @@ lab.experiment('Main conversion functions', function () {
     [-1001, 8, 17.9, 1355671.4, 21, 36, 0],
     [-4712, 1, 1.5, 0, 12, 0, 0]
   ]
-  lab.test('Julian Day to Calendar Date', function () {
+  it('Julian Day to Calendar Date', function () {
     table.forEach(function (testData) {
       const result = Moonbeams.jdToCalendar(testData[3])
-      Code.expect(result, 'calendar date from julian day').to.include(['year', 'month', 'day'])
+      expect(result, 'calendar date from julian day').to.include(['year', 'month', 'day'])
       const hms = Moonbeams.dayToHms(result.day)
-      Code.expect(result.year, 'year from julian day ' + testData[3]).to.equal(testData[0])
-      Code.expect(result.month, 'month from julian day ' + testData[3]).to.equal(testData[1])
-      Code.expect(Moonbeams.INT(result.day), 'day from julian day ' + testData[3]).to.equal(Moonbeams.INT(testData[2]))
-      Code.expect(hms.hour, 'hour from julian day ' + testData[3]).to.equal(testData[4])
-      Code.expect(hms.minute, 'minute from julian day ' + testData[3]).to.equal(testData[5])
-      Code.expect(hms.second, 'second from julian day ' + testData[3]).to.equal(testData[6])
+      expect(result.year, 'year from julian day ' + testData[3]).to.equal(testData[0])
+      expect(result.month, 'month from julian day ' + testData[3]).to.equal(testData[1])
+      expect(Moonbeams.INT(result.day), 'day from julian day ' + testData[3]).to.equal(Moonbeams.INT(testData[2]))
+      expect(hms.hour, 'hour from julian day ' + testData[3]).to.equal(testData[4])
+      expect(hms.minute, 'minute from julian day ' + testData[3]).to.equal(testData[5])
+      expect(hms.second, 'second from julian day ' + testData[3]).to.equal(testData[6])
     })
   })
-  lab.test('Calendar Date to Julian Day', function () {
+  it('Calendar Date to Julian Day', function () {
     table.forEach(function (testData) {
       const result = Moonbeams.calendarToJd(testData[0], testData[1], testData[2])
-      Code.expect(result, 'julian day from calendar date ' + testData[0] + '/' + testData[1] + '/' + testData[2]).to.equal(testData[3])
+      expect(result, 'julian day from calendar date ' + testData[0] + '/' + testData[1] + '/' + testData[2]).to.equal(testData[3])
     })
   })
 })
 
-lab.experiment('season calculator', function () {
+describe('season calculator', function () {
   // Test data from Meeus chapter 27
   // season, year, jd
   const table = [
     [1, 1962, 2437837.39245]
   ]
-  lab.test('Calculate julian day of season', function () {
+  it('Calculate julian day of season', function () {
     table.forEach(function (testData) {
       const result = Moonbeams.season(testData[0], testData[1])
-      Code.expect(Math.floor(result * 10000), 'julian day for ' + testData[0] + '/' + testData[1]).to.equal(Math.floor(testData[2] * 10000))
+      expect(Math.floor(result * 10000), 'julian day for ' + testData[0] + '/' + testData[1]).to.equal(Math.floor(testData[2] * 10000))
     })
   })
 })
 
-lab.experiment('helper functions', function () {
-  lab.test('INT', function () {
+describe('helper functions', function () {
+  it('INT', function () {
     // Examples from Meeus chapter 7
     // x, INT(x)
     const table = [
@@ -78,20 +77,20 @@ lab.experiment('helper functions', function () {
     ]
     table.forEach(function (testData) {
       const result = Moonbeams.INT(testData[0])
-      Code.expect(result, 'INT(' + testData[0] + ')').to.equal(testData[1])
+      expect(result, 'INT(' + testData[0] + ')').to.equal(testData[1])
     })
   })
-  lab.test('T', function () {
+  it('T', function () {
     // jd, T(jd)
     const table = [
       [2446895.5, -12729637]
     ]
     table.forEach(function (testData) {
       const result = Moonbeams.T(testData[0])
-      Code.expect(Moonbeams.INT(result * 100000000), 'T(' + testData[0] + ')').to.equal(testData[1])
+      expect(Moonbeams.INT(result * 100000000), 'T(' + testData[0] + ')').to.equal(testData[1])
     })
   })
-  lab.test('hms to decimal day', function () {
+  it('hms to decimal day', function () {
     // hour, minute, second, decimal day
     const table = [
       [12, 0, 0, 0.5],
@@ -101,32 +100,32 @@ lab.experiment('helper functions', function () {
     ]
     table.forEach(function (testData) {
       let result = Moonbeams.hmsToDay(testData[0], testData[1], testData[2])
-      Code.expect(result, 'decimal of ' + testData[0] + ' ' + testData[1] + ' ' + testData[2]).to.equal(testData[3])
+      expect(result, 'decimal of ' + testData[0] + ' ' + testData[1] + ' ' + testData[2]).to.equal(testData[3])
       result = Moonbeams.dayToHms(testData[3])
-      Code.expect(result, 'hms of ' + testData[3]).to.include(['hour', 'minute', 'second'])
-      Code.expect(result.hour, 'hour of ' + testData[3]).to.equal(testData[0])
-      Code.expect(result.minute, 'minute of ' + testData[3]).to.equal(testData[1])
-      Code.expect(result.second, 'second of ' + testData[3]).to.equal(testData[2])
+      expect(result, 'hms of ' + testData[3]).to.include(['hour', 'minute', 'second'])
+      expect(result.hour, 'hour of ' + testData[3]).to.equal(testData[0])
+      expect(result.minute, 'minute of ' + testData[3]).to.equal(testData[1])
+      expect(result.second, 'second of ' + testData[3]).to.equal(testData[2])
     })
   })
 
-  lab.test('hms to right ascention', function () {
+  it('hms to right ascention', function () {
     // hour, minute, second, right ascention
     const table = [
       [9, 14, 55.8, 138.73250] // Example 1.a from Meeus
     ]
     table.forEach(function (testData) {
       let result = Moonbeams.hmsToRightAscention(testData[0], testData[1], testData[2])
-      Code.expect(result, 'right ascention of' + testData[0] + ' ' + testData[1] + ' ' + testData[2]).to.equal(testData[3])
+      expect(result, 'right ascention of' + testData[0] + ' ' + testData[1] + ' ' + testData[2]).to.equal(testData[3])
       result = Moonbeams.rightAscentionToHms(testData[3])
-      Code.expect(result, 'hms of ' + testData[3]).to.include(['hour', 'minute', 'second'])
-      Code.expect(result.hour, 'hour of ' + testData[3]).to.equal(testData[0])
-      Code.expect(result.minute, 'minute of ' + testData[3]).to.equal(testData[1])
-      Code.expect(Math.floor(result.second), 'second of ' + testData[3]).to.equal(Math.floor(testData[2]))
+      expect(result, 'hms of ' + testData[3]).to.include(['hour', 'minute', 'second'])
+      expect(result.hour, 'hour of ' + testData[3]).to.equal(testData[0])
+      expect(result.minute, 'minute of ' + testData[3]).to.equal(testData[1])
+      expect(Math.floor(result.second), 'second of ' + testData[3]).to.equal(Math.floor(testData[2]))
     })
   })
 
-  lab.test('Leap year', function () {
+  it('Leap year', function () {
     // year, is leap year
     const table = [
       [900, false],
@@ -143,22 +142,22 @@ lab.experiment('helper functions', function () {
     ]
     table.forEach(function (testData) {
       const result = Moonbeams.isLeapYear(testData[0])
-      Code.expect(result, 'year ' + testData[0]).to.equal(testData[1])
+      expect(result, 'year ' + testData[0]).to.equal(testData[1])
     })
   })
 
-  lab.test('Day of week', function () {
+  it('Day of week', function () {
     // jd, day of week
     const table = [
       [2434923.5, 3] // Example 7.e from Meeus
     ]
     table.forEach(function (testData) {
       const result = Moonbeams.dayOfWeek(testData[0])
-      Code.expect(result, 'day of week for julian day ' + testData[0]).to.equal(testData[1])
+      expect(result, 'day of week for julian day ' + testData[0]).to.equal(testData[1])
     })
   })
 
-  lab.test('Day of year', function () {
+  it('Day of year', function () {
     // year, month, day, day of year
     const table = [
       [1978, 11, 14, 318], // Example7.f from Meeus
@@ -167,16 +166,16 @@ lab.experiment('helper functions', function () {
     table.forEach(function (testData) {
       const jd = Moonbeams.calendarToJd(testData[0], testData[1], testData[2])
       let result = Moonbeams.dayOfYear(jd)
-      Code.expect(result, 'day of year for ' + testData[0] + '/' + testData[1] + '/' + testData[2]).to.equal(testData[3])
+      expect(result, 'day of year for ' + testData[0] + '/' + testData[1] + '/' + testData[2]).to.equal(testData[3])
       result = Moonbeams.yearDayToCalendar(testData[3], testData[0])
-      Code.expect(result, 'calendar date from day ' + testData[3] + ' of year ' + testData[0]).to.include(['year', 'month', 'day'])
-      Code.expect(result.year, 'year from day ' + testData[3] + ' of year ' + testData[0]).to.equal(testData[0])
-      Code.expect(result.month, 'month from day ' + testData[3] + ' of year ' + testData[0]).to.equal(testData[1])
-      Code.expect(result.day, 'month day from day ' + testData[3] + ' of year ' + testData[0]).to.equal(testData[2])
+      expect(result, 'calendar date from day ' + testData[3] + ' of year ' + testData[0]).to.include(['year', 'month', 'day'])
+      expect(result.year, 'year from day ' + testData[3] + ' of year ' + testData[0]).to.equal(testData[0])
+      expect(result.month, 'month from day ' + testData[3] + ' of year ' + testData[0]).to.equal(testData[1])
+      expect(result.day, 'month day from day ' + testData[3] + ' of year ' + testData[0]).to.equal(testData[2])
     })
   })
 
-  lab.test('Sidereal time', function () {
+  it('Sidereal time', function () {
     // jd, mean hour, mean minute, mean second, apparent hour, apparent minute, apparent second
     const table = [
       [2446895.5, 13, 10, 46.3668], // Example 12.a from Meeus
@@ -185,17 +184,26 @@ lab.experiment('helper functions', function () {
     table.forEach(function (testData) {
       const result = Moonbeams.meanSiderealTime(testData[0])
       const hms = Moonbeams.rightAscentionToHms(result)
-      Code.expect(hms.hour, 'mean sidereal hour of ' + testData[0]).to.equal(testData[1])
-      Code.expect(hms.minute, 'mean sidereal minute of ' + testData[0]).to.equal(testData[2])
-      Code.expect(Moonbeams.INT(hms.second * 100), 'mean sidereal second of ' + testData[0]).to.equal(Moonbeams.INT(testData[3] * 100))
+      expect(hms.hour, 'mean sidereal hour of ' + testData[0]).to.equal(testData[1])
+      expect(hms.minute, 'mean sidereal minute of ' + testData[0]).to.equal(testData[2])
+      expect(Moonbeams.INT(hms.second * 100), 'mean sidereal second of ' + testData[0]).to.equal(Moonbeams.INT(testData[3] * 100))
     })
   })
 })
 
-lab.experiment('trig functions', function () {
-  lab.test('tangent', function () {
+describe('trig functions', function () {
+  it('tangent', function () {
     // Example 1.a from Meeus
     const result = Moonbeams.tangent(138.73250)
-    Code.expect(Math.floor(result * 1000000)).to.equal(-877517)
+    expect(Math.floor(result * 1000000)).to.equal(-877517)
+  })
+})
+
+describe('Interpolation functions', function () {
+  it('third differences', function () {
+    const table = [898013, 891109, 884226, 877366, 870531]
+    expect(Moonbeams.differences(table, 1)).to.equal([-6904, -6883, -6860, -6835])
+    expect(Moonbeams.differences(table, 2)).to.equal([21, 23, 25])
+    expect(Moonbeams.differences(table, 3)).to.equal([2, 2])
   })
 })

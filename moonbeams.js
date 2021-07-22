@@ -165,9 +165,9 @@ Moonbeams.apparentSiderealTime = function (jd) {
 // -------------------------
 
 // (Meeus chapter 7)
-// Convert given decimal julian day into calendar object
-// with year, month, fullDay (decimal day), day (integer day), hour,
-// minute, fullSecond (decimal second), second (integer second)
+// Convert given decimal julian day into calendar object with year, month,
+// fullDay (decimal day), day (integer day), hour, minute, fullSecond (decimal
+// second), second (integer second)
 const jdToCalendar = Moonbeams.jdToCalendar = function (jd) {
   if (jd < 0) {
     throw new Error('Cannot convert from negative Julian Day numbers')
@@ -341,26 +341,29 @@ Moonbeams.yearDayToCalendar = function (yearDay, year) {
   return { year: year, month: month, day: day }
 }
 
-/*
-// (Meeus chapter 15)
-// Calculate the time of sunrise for a given julian day
-Moonbeams.sunrise = function (jd, options) {
-  // var day;
-  const settings = {
-    latitude: 0, // Geographic latitude
-    longitude: 0,
-    dT: 0,
-    h0: -0.8333 // The Sun
+// (Meeus chapter 3)
+// Find nth order differences in tabular values
+Moonbeams.differences = function (values, order) {
+  if (values.length < (order * 2) - 1) {
+    throw new Error('Not enough values to calculate order ' + order)
   }
-  if (options) {
-    Object.keys(options).forEach(function (optionName) {
-      settings[optionName] = options[optionName]
-    })
+  // TODO order determines how many values we need
+  // at least (2 * order) - 1?
+  let differences = values
+  for (let o = 0; o < order; o++) {
+    differences = differences.reduce((acc, cur, index) => { acc[index - 1] = cur - acc[index - 1]; acc[index] = cur; return acc }, []).slice(0, -1)
   }
-  const calendar = jdToCalendar(jd)
-  // day = INT(calendar.day) + 0.5;
-  // Calculate sidereal time theta0 at 0h UT on day D for the meridian of greenwich, in degrees
-  const meanSidereal = meanSiderealTime(calendar.day)
-  // Calculate teh apparent right ascentions and eclinations of the sun
+  return differences
 }
-*/
+
+// (Meeus chapter 3)
+// Interpolation from three or from five tabular values
+// Deciding if interpolation from 3 value is permitted is outside the scope of
+// this function
+Moonbeams.iterpolate = function (values, point) {
+  if (values.length === 3) {
+  }
+  if (values.length === 5) {
+  }
+  throw new Error('Can only interpolate from 3 or 5 tabular values')
+}
